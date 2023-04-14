@@ -24,7 +24,7 @@ const crop=(text)=>{
 
 
   return (
-<div key={id} className= "relative bg-white flex flex-col  p-10 m-5 z-30">
+<div key={id} className= "relative bg-white flex flex-col  p-10 m-5 z-30 min-h-[600px]">
     <p className="absolute top-2 right-2 text-xs italic text-gray-400">{category}</p>
   
  <img loading="lazy" src={image} className="w-[200px] h-[200px] self-center object-contain"  />
