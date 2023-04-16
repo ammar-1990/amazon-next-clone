@@ -3,11 +3,16 @@ import { Inter } from 'next/font/google'
 import Header from '@/components/Header'
 import Banner from '@/components/Banner'
 import Products from '@/components/Products'
-
+import { useEffect } from 'react'
+import { addToBasket, selectItems } from '@/slices/basketSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({data}) {
+
+
+
   return (
     <div className='bg-gray-100'>
       <Head>

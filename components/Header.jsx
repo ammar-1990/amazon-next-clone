@@ -3,14 +3,38 @@ import Image from 'next/image'
 import {MagnifyingGlassIcon }  from '@heroicons/react/24/outline'
 import {ShoppingCartIcon} from '@heroicons/react/24/outline'
 import {Bars3Icon} from '@heroicons/react/24/outline'
+import { useRouter } from 'next/router'
+import { useSelector,useDispatch } from 'react-redux'
+import { addToBasket, initialItems, selectItems } from '@/slices/basketSlice'
+import { useEffect } from 'react'
+
+
 
 const Header = () => {
+
+
+    const router = useRouter()
+    const items=useSelector(selectItems)
+
+
+ 
+    const dispatch=useDispatch()
+  useEffect(()=>{
+    const products=JSON.parse(localStorage.getItem('items'))
+    console.log(products)
+    if(products?.length > 0 && items.length===0){
+        console.log('done')
+    dispatch(initialItems(products))}
+    else{console.log('no')}
+    
+    
+  },[])
   return (
     <header >
        <div
        className='flex items-center bg-amazon_blue p-1 py-2 justify-between'
        >
-<div>
+<div onClick={()=>router.push('/')}>
 <Image src={'/assets/amazon.png'} 
 width={150}
 height={40}
@@ -35,11 +59,11 @@ alt='amazon logo'
     <p>&Orders</p>
     </div>
    
-    <div className='link relative flex items-center'>
+    <div onClick={()=>router.push('/checkout')} className='link relative flex items-center'>
     
         <ShoppingCartIcon className='h-8 text-white ' />
         <p className='hidden sm:inline mt-2 '>Basket</p>
-        <div className='bg-yellow-400 w-3 h-3 p-2 text-black font-bold top-[-4px] right-[-4px] sm:right-10 absolute rounded-full flex items-center justify-center'>0</div>
+        <div className='bg-yellow-400 w-3 h-3 p-2 text-black font-bold top-[-4px] right-[-4px] sm:right-10 absolute rounded-full flex items-center justify-center'>{items.length}</div>
     </div>
     
 </div>

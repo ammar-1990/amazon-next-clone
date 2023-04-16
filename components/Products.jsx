@@ -6,6 +6,7 @@ const Products = ({data}) => {
     <div className="grid grid-flow-row-dense sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-52 mx-auto">
         {data.slice(0,4).map(({id,title,price,description,category,image})=>(
 <Product
+key={id}
 id={id}
 title={title}
 price={price}
@@ -19,6 +20,7 @@ image={image}
         <div className="md:col-span-2">
         {data.slice(4,5).map(({id,title,price,description,category,image})=>(
 <Product
+key={id}
 id={id}
 title={title}
 price={price}
@@ -32,6 +34,7 @@ image={image}
       
         {data.slice(5,data.length).map(({id,title,price,description,category,image})=>(
 <Product
+key={id}
 id={id}
 title={title}
 price={price}

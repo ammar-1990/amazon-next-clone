@@ -2,7 +2,19 @@
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { StarIcon } from "@heroicons/react/24/solid"
+import { useDispatch } from "react-redux"
+import { addToBasket } from "@/slices/basketSlice"
 
+export const crop=(text,check)=>{
+    if(check){
+        return  `${text.slice(0,200)}...`
+    }
+    else if(text.length<50)
+    return text
+    else{
+        return `${text.slice(0,50)}...`
+    }
+    }
 
 const Product = ({id,title,price,description,category,image}) => {
 
@@ -13,15 +25,16 @@ const MIN_RATE=1
 
     useEffect(()=>{setRate(Math.floor(Math.random()  * (MAX_RATE - MIN_RATE +1 ) ) + MIN_RATE)},[])
     useEffect(()=>{setHasPrime(Math.random() > 0.5)},[])
-const crop=(text)=>{
-    if(text.length<50)
-    return text
-    else{
-        return `${text.slice(0,50)}...`
-    }
+
+const dispatch=useDispatch()
+const addItem=()=> {
+    const product ={
+        id,
+        title,price,description,category,image,hasPrime,rate
     }
 
-
+dispatch(addToBasket(product))
+}
 
   return (
 <div key={id} className= "relative bg-white flex flex-col  p-10 m-5 z-30 min-h-[600px]">
@@ -42,7 +55,7 @@ const crop=(text)=>{
     <img className="w-12" src="https://links.papareact.com/fdw" />
     <p className="text-xs text-gray-500">FREE Next-day delivery</p>
     </div>}
-    <button className="button mt-auto">Add to basket</button>
+    <button onClick={addItem} className="button mt-auto">Add to basket</button>
 </div>
   )
 }
