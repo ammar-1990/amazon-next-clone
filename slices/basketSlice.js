@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { nanoid } from "@reduxjs/toolkit";
+
 const INITIALSTATE={
-    items:[]
+    items:[],
+    orders:[]
 }
 
 export const basketSlice=createSlice({
@@ -28,12 +31,32 @@ else{
     console.warn("cant't remve item with id " + action.payload + "...")
 }
 
+        },
+
+        resetBasket:(state)=>{
+            state.items=[]
+            localStorage.removeItem('items')
+        },
+        addToOrders:(state,action)=>{
+            state.orders.push({
+                id : nanoid(),
+             
+                date:new Date().toDateString(),
+                data:state.items
+            })
+            
+            localStorage.setItem('orders',JSON.stringify(state.orders))
+        },
+        initialOrders:(state,action)=>{
+            state.orders=action.payload
         }
     }
 
 })
 
-export const {addToBasket,removeFromBasket,initialItems}=basketSlice.actions;
+
+export const selectOrders=(state)=>state.basket.orders
+export const {addToBasket,removeFromBasket,initialItems,addToOrders,initialOrders,resetBasket}=basketSlice.actions;
 export const selectItems=(state)=>state.basket.items;
 export const selectTotal=(state)=>state.basket.items.reduce((total,item)=>total + item.price,0).toFixed(2)
 export default basketSlice.reducer

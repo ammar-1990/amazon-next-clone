@@ -5,7 +5,7 @@ import {ShoppingCartIcon} from '@heroicons/react/24/outline'
 import {Bars3Icon} from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router'
 import { useSelector,useDispatch } from 'react-redux'
-import { addToBasket, initialItems, selectItems } from '@/slices/basketSlice'
+import { addToBasket, initialItems, selectItems,initialOrders, selectOrders } from '@/slices/basketSlice'
 import { useEffect } from 'react'
 
 
@@ -15,11 +15,18 @@ const Header = () => {
 
     const router = useRouter()
     const items=useSelector(selectItems)
+    const orders=useSelector(selectOrders)
 
 
  
     const dispatch=useDispatch()
   useEffect(()=>{
+      const myOrders=JSON.parse(localStorage.getItem('orders'))
+      if(myOrders?.length > 0 && orders.length===0){
+        console.log('done')
+    dispatch(initialOrders(myOrders))}
+    else{console.log('no')}
+
     const products=JSON.parse(localStorage.getItem('items'))
     console.log(products)
     if(products?.length > 0 && items.length===0){
@@ -54,7 +61,7 @@ alt='amazon logo'
         <p>Hello Ammar Haidar</p>
         <p>Account & lists</p>
     </div>
-    <div className='link'>
+    <div onClick={()=>router.push('/orders')} className='link'>
          <p>Returns</p>
     <p>&Orders</p>
     </div>

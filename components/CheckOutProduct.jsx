@@ -22,7 +22,7 @@ dispatch(addToBasket(product))
             dispatch(removeFromBasket(id))
         }
   return (
-    <div className='grid md:grid-cols-5 md:space-x-4 mb-[75px] last-of-type:mb-0 items-center gap-6 pb-3 border-b'>
+    <div className='grid md:grid-cols-5 md:space-x-4 mb-[40px] last-of-type:mb-0 items-center gap-6 pb-8 border-b'>
         <div className='relative col-span-2  md:col-span-1  aspect-square'>
         <Image src={image} fill objectFit='contain' alt='product image'/>
         </div>
