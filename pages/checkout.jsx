@@ -2,11 +2,12 @@ import Header from '@/components/Header'
 import Image from 'next/image'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectItems } from '@/slices/basketSlice'
+import { selectItems, selectTotal } from '@/slices/basketSlice'
 import CheckOutProduct from '@/components/CheckOutProduct'
 
 function checkout() {
     const items =useSelector(selectItems)
+    const total = useSelector(selectTotal)
    const set =new Set(items.map(item=>item.id))
    console.log(set)
   return (
@@ -27,8 +28,9 @@ function checkout() {
                 </div>
              </div>
         </div>
-        <div className='m-5 w-[300px] bg-white shadow-md'>
-            right
+        <div className='m-5 lg:w-[300px] bg-white shadow-md p-5'>
+           <p className='font-bold'>SubTotla {`(${items.length} ${items.length===1 ? 'items' : 'items'}):`} ${total} </p>
+           <button disabled={items.length===0} className={`button mt-5 w-full ${items.length===0 && 'opacity-40 cursor-not-allowed'}`}>Proceed to checkout</button>
         </div>
     </main>
     </div>
